@@ -12,7 +12,7 @@
   }
 </script>
 
-<style>
+<style lang="scss">
   .red {
     color: #f00;
   }
