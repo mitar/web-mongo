@@ -1,0 +1,26 @@
+{
+  "scripts": {
+    "build": "browserify -d -t [ babelify --presets [ env ] ] -g aliasify -i utf-8-validate ./src/client/app.js -o ./public/bundle.js",
+    "watch": "watchify -v -d -t [ babelify --presets [ env ] ] -g aliasify -i utf-8-validate ./src/client/app.js -o ./public/bundle.js",
+    "clean": "rm -f ./public/bundle.js",
+    "start": "node ./src/server/app.js"
+  },
+  "dependencies": {
+    "aliasify": "^2.1.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
+    "browserify": "^16.1.1",
+    "bufferutil": "^3.0.3",
+    "express": "^4.16.2",
+    "mongodb": "^3.0.4",
+    "randomstring": "^1.1.5",
+    "watchify": "^3.11.0",
+    "ws": "^5.0.0"
+  },
+  "aliasify": {
+    "aliases": {
+      "net": "./src/client/net.js"
+    }
+  }
+}
