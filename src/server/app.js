@@ -2,7 +2,7 @@ const express = require('express');
 const http = require('http');
 const net = require('net');
 const path = require('path');
-const randomstring = require("randomstring");
+const randomstring = require('randomstring');
 const ws = require('ws');
 
 const port = process.env.PORT || 5000;

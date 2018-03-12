@@ -1,7 +1,7 @@
 <template>
   <div class="events">
     <h1>Events</h1>
-    <button @click.prevent="onClick">Add event</button>
+    <button @click.prevent="onClick" :disabled="eventCreationInProgress">Add event</button>
     <ul>
       <li v-for="event in events">
         {{event.createdAt}}: {{event.message}}
@@ -17,11 +17,16 @@
     data() {
       return {
         events: Event.documents,
+        eventCreationInProgress: false,
       }
     },
 
     methods: {
-      onClick: Event.addEvent,
+      async onClick() {
+        this.eventCreationInProgress = true;
+        await Event.addEvent();
+        this.eventCreationInProgress = false;
+      }
     },
   }
 </script>

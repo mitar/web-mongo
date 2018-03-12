@@ -1,5 +1,6 @@
 import assert from 'assert';
 import {MongoClient} from 'mongodb';
+import randomstring from 'randomstring';
 import Vue from 'vue';
 
 // This URL is hard-coded to be recognized by the "net" module shim as mongo connection.
@@ -196,8 +197,15 @@ export class Event {
     }
   }
 
-  static addEvent() {
-    console.log("add event");
+  static async addEvent() {
+    const client = await mongoClientPromise;
+    const db = client.db(dbName);
+    const collection = db.collection(this.collectionName);
+
+    await collection.insertOne({
+      createdAt: new Date(),
+      message: randomstring.generate({length: 1000}),
+    });
   }
 }
 
