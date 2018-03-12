@@ -61,6 +61,8 @@ wsServer.on('connection', function (connection, req) {
   });
 
   connection.on('message', function (data) {
+    if (mongoConnection.destroyed && !mongoConnection.writable) return;
+
     // Data is an array of fragments.
     data.forEach(function (fragment) {
       mongoConnection.write(fragment, function (error) {
@@ -74,6 +76,8 @@ wsServer.on('connection', function (connection, req) {
   });
 
   mongoConnection.on('data', function (data) {
+    if (connection.readyState !== connection.OPEN) return;
+
     connection.send(data, {binary: true}, function (error) {
       if (error) {
         console.log("Connection send error", connection.id, "error", error);
@@ -83,12 +87,16 @@ wsServer.on('connection', function (connection, req) {
   });
 
   mongoConnection.on('close', function (had_error) {
-    console.log("Mongo connection closed");
+    console.log("Mongo connection closed", connection.id);
     connection.close();
   });
 
+  mongoConnection.on('error', function (error) {
+    console.log("Mongo connection error", connection.id, "error", error);
+  });
+
   mongoConnection.on('timeout', function () {
-    console.log("Mongo connection timeout");
+    console.log("Mongo connection timeout", connection.id);
     mongoConnection.destroy();
   });
 });

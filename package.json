@@ -1,14 +1,16 @@
 {
   "scripts": {
-    "build": "browserify -d -t vueify -t [ babelify --presets [ env ] ] -p [ vueify/plugins/extract-css -o public/bundle.css ] -g aliasify -i utf-8-validate -e ./src/client/app.js -o ./public/bundle.js",
-    "watch": "rm -f public/bundle.css && touch public/bundle.css && watchify -v -d -p browserify-hmr -t vueify -t [ babelify --presets [ env ] ] -g aliasify -i utf-8-validate -e ./src/client/app.js -o ./public/bundle.js",
+    "build": "browserify -d -p [ vueify/plugins/extract-css -o public/bundle.css ] -g aliasify -i utf-8-validate -e ./src/client/app.js -o ./public/bundle.js",
+    "watch": "rm -f public/bundle.css && touch public/bundle.css && watchify -v -d -p browserify-hmr -g aliasify -i utf-8-validate -e ./src/client/app.js -o ./public/bundle.js",
     "clean": "rm -f ./public/bundle.js",
     "start": "node ./src/server/app.js"
   },
   "dependencies": {
     "aliasify": "^2.1.0",
     "babel-core": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
     "babelify": "^8.0.0",
     "browserify": "^16.1.1",
     "browserify-hmr": "^0.3.6",
@@ -21,6 +23,12 @@
     "vueify": "^9.4.1",
     "watchify": "^3.11.0",
     "ws": "^5.0.0"
+  },
+  "browserify": {
+    "transform": [
+      "vueify",
+      "babelify"
+    ]
   },
   "aliasify": {
     "aliases": {
