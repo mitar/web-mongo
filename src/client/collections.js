@@ -62,6 +62,7 @@ function updateFields(doc, updatedFields) {
   }
 }
 
+// TODO: Keep the number of documents exposed capped to 100.
 export class Event {
   constructor(obj) {
     Object.assign(this, obj);
