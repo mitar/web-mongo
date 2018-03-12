@@ -116,6 +116,12 @@ export class Event {
     });
     pendingChanges.length = 0;
     initializing = false;
+
+    return {
+      async stop() {
+        await changeStream.close();
+      },
+    }
   }
 
   static _processChange(change) {
@@ -199,6 +205,17 @@ Event.collectionName = 'Events';
 Event.documents = [];
 Event._idToIndex = new Map();
 
-Event.sync().catch(function (error) {
+const syncHandlePromise = Event.sync();
+syncHandlePromise.catch(function (error) {
   console.log(`Error syncing the '${Event.collectionName}' collection`, error);
 });
+
+if (module.hot) {
+  module.hot.dispose(async (data) => {
+    const syncHandle = await syncHandlePromise;
+    await syncHandle.stop();
+
+    const client = await mongoClientPromise;
+    await client.close();
+  });
+}
