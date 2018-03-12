@@ -7,7 +7,7 @@ const url = 'mongodb://localhost:27017';
 // TODO: Make configurable.
 const dbName = 'app';
 
-const mongoClientPromise = MongoClient.connect(url, {promiseLibrary: Promise});
+const mongoClientPromise = MongoClient.connect(url);
 
 mongoClientPromise.then(function (client) {
   console.log("Connected to Mongo.");
