@@ -83,7 +83,7 @@ module.exports = {
     }, {
       get: function (target, name) {
         if (!(name in target)) {
-          console.log("Accessing non-existant property", name);
+          console.log("Accessing non-existent property", name);
         }
 
         return target[name];
