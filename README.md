@@ -6,7 +6,10 @@ and latency introduced by intermediary code: multiple serializations and deseria
 web browsers cannot directly connect to a TCP port, the web app exposes a thin WebSockets-TCP proxy which does not
 process packets but just passes them back and forth.
 
-Change Streams is an official MongoDB API since MongoDB 3.6 to hook into the 
+Change Streams is an official MongoDB API since MongoDB 3.6 to hook into the oplog and receive a stream
+of notifications as documents in a collection are being modified.
+
+This web app then uses [Vue](https://vuejs.org/) to render the example reactive collection.
 
 Considerations:
 
