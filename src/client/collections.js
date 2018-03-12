@@ -29,7 +29,14 @@ export class Event {
     await db.createCollection(this.collectionName);
 
     const collection = db.collection(this.collectionName);
-    const changeStream = collection.watch();
+    const changeStream = collection.watch([
+      {
+        // TODO: We do not use it.
+        $project: {
+          ns: 0,
+        },
+      },
+    ]);
 
     changeStream.on('change', (change) => {
       if (initializing) {
