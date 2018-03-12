@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "browserify -d -p [ vueify/plugins/extract-css -o public/bundle.css ] -g aliasify -i utf-8-validate -e ./src/client/app.js -o ./public/bundle.js",
+    "build": "browserify -p [ vueify/plugins/extract-css -o public/bundle.css ] -g aliasify -g uglifyify -i utf-8-validate -e ./src/client/app.js -o ./public/bundle.js",
     "watch": "rm -f public/bundle.css && touch public/bundle.css && watchify -v -d -p browserify-hmr -g aliasify -i utf-8-validate -e ./src/client/app.js -o ./public/bundle.js",
     "clean": "rm -f ./public/bundle.js",
     "start": "node ./src/server/app.js"
@@ -19,6 +19,7 @@
     "mongodb": "^3.0.4",
     "node-sass": "^4.7.2",
     "randomstring": "^1.1.5",
+    "uglifyify": "^4.0.5",
     "vue": "^2.5.15",
     "vueify": "^9.4.1",
     "watchify": "^3.11.0",

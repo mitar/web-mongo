@@ -23,6 +23,7 @@ Considerations:
 * If you do not want to send change stream for the whole collection to the client and you use `$match` to limit
   changes being streamed, note that there will be no change notification when a document stops matching a query.
   Because of this the best is to query only on fields you never change.
+* This simple web app's bundle is already 1.2 MB minimized.
 
 ## How to run ##
 
