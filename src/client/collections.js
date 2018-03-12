@@ -14,8 +14,8 @@ mongoClientPromise.then(function (client) {
 });
 
 export class Event {
-  constructor() {
-    throw Error("Creating instances not yet supported.");
+  constructor(obj) {
+    Object.assign(this, obj);
   }
 
   static async sync() {
