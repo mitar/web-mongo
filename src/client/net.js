@@ -4,6 +4,7 @@ module.exports = {
       throw new Error(`Could not connect to '${options.host}:${options.port}'.`)
     }
 
+    // TODO: Use origin to determine "ws" vs. "wss" and hostname and port.
     const connection = new WebSocket('ws://localhost:5000/mongo');
 
     connection.binaryType = 'arraybuffer';
